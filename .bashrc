@@ -516,3 +516,12 @@ export PATH=/opt/X11/bin:$PATH
 
 # added by Anaconda 1.8.0 installer
 export PATH="//anaconda/bin:$PATH"
+
+#emacs
+alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
+alias kill-emacs="emacsclient -e '(kill-emacs)'"
+export EDITOR="emacsclient --alternate-editor=\"\" -t"
+export VISUAL="emacsclient --alternate-editor=\"\" -t"
+export GOPATH="/Users/madhu/develop/gocode"
+export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
+
