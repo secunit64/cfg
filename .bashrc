@@ -301,7 +301,7 @@ function gmb {
   curr_branch_name=$(git branch | grep \* | cut -c 3-);
   if [ -z $(git branch | cut -c 3- | grep -x $1) ]; then
     git branch -m $curr_branch_name $1
-  else 
+  else
     temp_branch_name=$1-old-$RANDOM;
     echo target branch name already exists, renaming to $temp_branch_name
     git branch -m $1 $temp_branch_name
@@ -393,7 +393,7 @@ if [ $(uname) == "Darwin" ]; then
   export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/Cellar/python/2.7.3/bin:/usr/local/share/python:$HOME/bin:$PATH
   export MANPATH=/opt/local/share/man:$MANPATH
 
-  #aliases 
+  #aliases
   alias ls='ls -G'
   alias ll='ls -lG'
   alias la='ls -alG'
@@ -407,7 +407,7 @@ if [ $(uname) == "Darwin" ]; then
   function gvim {
     if [ -e $1 ];
       then open -a MacVim $@;
-      else touch $@ && open -a MacVim $@; 
+      else touch $@ && open -a MacVim $@;
     fi
   }
 
@@ -478,7 +478,7 @@ fi
 # }}}
 # }}}
 # rvm setup {{{
-if [ -e $HOME/.rvm/scripts/rvm ]; then 
+if [ -e $HOME/.rvm/scripts/rvm ]; then
   source $HOME/.rvm/scripts/rvm
   PATH=$PATH:$HOME/.rvm/bin
 fi
@@ -500,3 +500,19 @@ export PATH=$PATH:$GOPATH/bin
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 
+### Madhu's Customizations
+
+export PATH=/usr/local/share/npm/bin:$PATH
+
+# homebrew python 2.7
+export PATH=/usr/local/share/python:$PATH
+
+# for pyside
+# export PYTHONPATH=/Library/Python/2.7/site-packages/:$PYTHONPATH
+
+# X11 applications
+
+export PATH=/opt/X11/bin:$PATH
+
+# added by Anaconda 1.8.0 installer
+export PATH="//anaconda/bin:$PATH"
