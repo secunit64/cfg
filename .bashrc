@@ -24,7 +24,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 #path should have durdn config bin folder
-export PATH=$HOME/.cfg/bin:$PATH
+export PATH=$HOME/cfg/bin:$PATH
 #set the terminal type to 256 colors
 export TERM=xterm-256color
 
@@ -145,7 +145,7 @@ function dur {
     git clone git@bitbucket.org:durdn/$2.git
     ;;
   install|i)
-    $HOME/.cfg/install.sh
+    $HOME/cfg/install.sh
     ;;
   reinstall|re)
     curl -Ls https://raw.github.com/durdn/cfg/master/install.sh | bash
@@ -524,4 +524,3 @@ export EDITOR="emacsclient --alternate-editor=\"\" -t"
 export VISUAL="emacsclient --alternate-editor=\"\" -t"
 export GOPATH="/Users/madhu/develop/gocode"
 export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
-
