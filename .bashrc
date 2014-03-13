@@ -494,33 +494,52 @@ LP_ENABLE_PROXY=0
 LP_USER_ALWAYS=0
 # }}}
 # golang setup {{{
-export GOPATH=$HOME/dev/projects/go/
+export GOPATH=[$HOME/dev/projects/go/]
 export PATH=$PATH:$GOPATH/bin
 # }}}
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 
+
 ### Madhu's Customizations
 
-export PATH=/usr/local/share/npm/bin:$PATH
+# OSX specific config {{{
+if [ $(uname) == "Darwin" ]; then
+    export PATH=/usr/local/share/npm/bin:$PATH
+    # homebrew python 2.7
+    export PATH=/usr/local/share/python:$PATH
+    # X11 applications
+    export PATH=/opt/X11/bin:$PATH
+    # added by Anaconda 1.8.0 installer
+    export PATH="//anaconda/bin:$PATH"
+    #emacs
+    alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
+    alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    export EDITOR="emacsclient --alternate-editor=\"\" -t"
+    export VISUAL="emacsclient --alternate-editor=\"\" -t"
+    export GOPATH="/Users/madhu/develop/gocode"
+    export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
+fi
+# }}}
 
-# homebrew python 2.7
-export PATH=/usr/local/share/python:$PATH
+# Linux specific config {{{
+if [ $(uname) == "Linux" ]; then
+    # Source global definitions
+    # if [ -f /etc/bashrc ]; then
+    #	. /etc/bashrc
+    # fi
 
-# for pyside
-# export PYTHONPATH=/Library/Python/2.7/site-packages/:$PYTHONPATH
+    export EQ_LOG_LEVEL=INFO
+    PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+    module use /home/srinivm/software/modulefiles
+    module load emacs/24.3
+    module load solarize/solarize
 
-# X11 applications
-
-export PATH=/opt/X11/bin:$PATH
-
-# added by Anaconda 1.8.0 installer
-export PATH="//anaconda/bin:$PATH"
-
-#emacs
-alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
-alias kill-emacs="emacsclient -e '(kill-emacs)'"
-export EDITOR="emacsclient --alternate-editor=\"\" -t"
-export VISUAL="emacsclient --alternate-editor=\"\" -t"
-export GOPATH="/Users/madhu/develop/gocode"
-export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
+    alias emacs="emacsclient -nw -t"
+    alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    export ALTERNATE_EDITOR=""
+    export EDITOR="emacsclient -nw -t"
+    export VISUAL="emacsclient -nw -t"
+    export LP_ENABLE_TEMP=0
+fi
+# }}}
