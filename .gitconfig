@@ -1,14 +1,14 @@
 # core {{{
 [core]
-    editor = /usr/bin/vim
+    editor = emacs
     excludesfile = /Users/npaolucci/.gitignore_global
     pager=less -x4
 
 #}}}
 # user {{{
 [user]
-    email = nick@durdn.com
-    name = Nicola Paolucci
+    email = smadhueagle@outlook.com
+    name = Madhu Srinivasan
 
 #}}}
 # color {{{
