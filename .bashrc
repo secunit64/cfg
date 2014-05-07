@@ -277,9 +277,9 @@ if [ $(uname) == "Linux" ]; then
   alias pacman='sudo pacman'
   alias pac='sudo pacman'
 
-  alias ls='ls --color'
-  alias ll='ls -l --color'
-  alias la='ls -al --color'
+  alias ls='ls --color=auto'
+  alias ll='ls -l --color=auto'
+  alias la='ls -al --color=auto'
   alias less='less -R'
 
   #project aliases
