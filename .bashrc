@@ -403,7 +403,7 @@ LP_ENABLE_PROXY=0
 LP_USER_ALWAYS=0
 # }}}
 # golang setup {{{
-export GOPATH=[$HOME/dev/projects/go/]
+export GOPATH=[$HOME/develop/github/how-to-go]
 export PATH=$PATH:$GOPATH/bin
 # }}}
 
@@ -426,7 +426,6 @@ if [ $(uname) == "Darwin" ]; then
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     export EDITOR="emacsclient --alternate-editor=\"\" -t"
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
-    export GOPATH="/Users/madhu/develop/gocode"
     export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 fi
 # }}}
