@@ -13,3 +13,6 @@
 [submodule ".vim/bundle/vundle"]
 	path = .vim/bundle/vundle
 	url = git@github.com:smadhueagle/vundle.git
+[submodule ".ecb"]
+	path = .ecb
+	url = git@github.com:smadhueagle/ecb.git
