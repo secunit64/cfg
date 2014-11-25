@@ -414,13 +414,16 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
+    # npm from nodejs
     export PATH=/usr/local/share/npm/bin:$PATH
     # homebrew python 2.7
-    export PATH=/usr/local/share/python:$PATH
+    # export PATH=/usr/local/share/python:$PATH
     # X11 applications
     export PATH=/opt/X11/bin:$PATH
     # added by Anaconda 1.8.0 installer
-    export PATH="//anaconda/bin:$PATH"
+    # export PATH="//anaconda/bin:$PATH"
+    # cuda sdk
+    export PATH=/usr/local/cuda/bin:$PATH
     #emacs
     alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
