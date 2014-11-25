@@ -437,6 +437,7 @@ if [ $(uname) == "Linux" ]; then
     #	. /etc/bashrc
     # fi
 
+    umask 002
     export EQ_LOG_LEVEL=INFO
     PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     module use /home/srinivm/software/modulefiles
