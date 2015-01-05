@@ -19,8 +19,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+if [ -f /etc/bashrc ] && ! shopt -oq posix; then
+    . /etc/bashrc
 fi
 
 #path should have durdn config bin folder
@@ -420,8 +420,6 @@ if [ $(uname) == "Darwin" ]; then
     export PATH=/usr/local/share/python:$PATH
     # X11 applications
     export PATH=/opt/X11/bin:$PATH
-    # added by Anaconda 1.8.0 installer
-    # export PATH="//anaconda/bin:$PATH"
     # cuda sdk
     export PATH=/usr/local/cuda/bin:$PATH
     #emacs
