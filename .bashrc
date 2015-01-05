@@ -439,13 +439,14 @@ if [ $(uname) == "Linux" ]; then
     # if [ -f /etc/bashrc ]; then
     #	. /etc/bashrc
     # fi
+    source /usr/share/Modules/init/bash
 
     umask 002
-    export EQ_LOG_LEVEL=INFO
-    PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+    #export EQ_LOG_LEVEL=INFO
+    #PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     module use /home/srinivm/software/modulefiles
-    module load emacs/24.3
-    module load solarize/solarize
+    #module load emacs/24.3
+    #module load solarize/solarize
 
     alias emacs="emacsclient -nw -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
