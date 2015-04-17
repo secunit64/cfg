@@ -16,3 +16,6 @@
 [submodule ".ecb"]
 	path = .ecb
 	url = git@github.com:smadhueagle/ecb.git
+[submodule ".ssh"]
+	path = .ssh
+	url = git@github.com:smadhueagle/ssh-config.git
