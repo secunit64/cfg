@@ -8,5 +8,6 @@ ln -sf ~/cfg/.gitconfig ~/.gitconfig
 cd ~/.ssh && chmod 644 config
 cd ~/cfg/
 ln -sf ~/cfg/.liquidprompt/liquidprompt ~/.liquidprompt
+ln -sf ~/cfg/.liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
 cd ~/cfg/.ecb && make
 cd ~
