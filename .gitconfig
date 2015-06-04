@@ -36,7 +36,7 @@
 # }}}
 # push/pull/diff/options {{{
 [push]
-    default = current 
+    default = matching
 [pull]
     default = current
 [diff]
