@@ -440,12 +440,17 @@ if [ $(uname) == "Linux" ]; then
     source /usr/share/Modules/init/bash
     umask 002
     module use ~/software/modulefiles
+    
+    module swap PrgEnv-cray/5.2.40 PrgEnv-gnu
+    module load autoconf/2.69
+    module load automake/1.14
+    #module load emacs/24.3
 
-    alias emacs="emacsclient -nw -t"
-    alias kill-emacs="emacsclient -e '(kill-emacs)'"
-    export ALTERNATE_EDITOR=""
-    export EDITOR="emacsclient -nw -t"
-    export VISUAL="emacsclient -nw -t"
+    #alias emacs="emacsclient -nw -t"
+    #alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    #export ALTERNATE_EDITOR=""
+    #export EDITOR="emacsclient -nw -t"
+    #export VISUAL="emacsclient -nw -t"
     export LP_ENABLE_TEMP=0
 fi
 # }}}
