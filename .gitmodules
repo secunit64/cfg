@@ -18,4 +18,4 @@
 	url =  https://github.com/smadhueagle/ecb.git 
 [submodule ".ssh"]
 	path = .ssh
-	url = https://github.com/smadhueagle/ssh-config.git
+	url = git@github.com:smadhueagle/ssh-config.git
