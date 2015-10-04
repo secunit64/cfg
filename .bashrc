@@ -429,6 +429,8 @@ if [ $(uname) == "Darwin" ]; then
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
     export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
+    # added by Anaconda 2.3.0 installer
+    export PATH="/Users/srinivm/anaconda/bin:$PATH"
     export PATH=~/develop/github/torch/install/bin:$PATH  # Added automatically by torch-dist
     export LD_LIBRARY_PATH=~/develop/github/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
     export DYLD_LIBRARY_PATH=~/develop/github/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
