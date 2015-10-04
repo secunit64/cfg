@@ -417,7 +417,7 @@ if [ $(uname) == "Darwin" ]; then
     # npm from nodejs
     export PATH=/usr/local/share/npm/bin:$PATH
     # homebrew python 2.7
-    export PATH=/usr/local/share/python:$PATH
+    # export PATH=/usr/local/share/python:$PATH
     # X11 applications
     export PATH=/opt/X11/bin:$PATH
     # cuda sdk
@@ -444,7 +444,18 @@ if [ $(uname) == "Linux" ]; then
     # fi
     source /usr/share/Modules/init/bash
     umask 002
-    module use ~/software/modulefiles
+    if [ "$(lsb_release -sir)" == "CentOS 7.1.1503" ]
+    then
+        echo "Detected $(lsb_release -sir)"
+        module use /home/srinivm/CentOS7/modulefiles
+    elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
+    then
+        echo "Detected $(lsb_release -sir)"
+        module use /home/srinivm/software/modulefiles
+        module load emacs/24.3
+    else
+        echo "Unkown Linux Distribution"
+    fi
 
     alias emacs="emacsclient -nw -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
