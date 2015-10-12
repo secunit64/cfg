@@ -465,5 +465,9 @@ if [ $(uname) == "Linux" ]; then
     export EDITOR="emacsclient -nw -t"
     export VISUAL="emacsclient -nw -t"
     export LP_ENABLE_TEMP=0
+
+    # added by Miniconda 3.16.0 installer
+    export PATH="/home/srinivm/miniconda/bin:$PATH"
+
 fi
 # }}}
