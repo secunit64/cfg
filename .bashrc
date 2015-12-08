@@ -448,15 +448,21 @@ if [ $(uname) == "Linux" ]; then
     umask 002
     if [ "$(lsb_release -sir)" == "CentOS 7.1.1503" ]
     then
-        echo "Detected $(lsb_release -sir)"
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
         module use /home/srinivm/CentOS7/modulefiles
     elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
     then
-        echo "Detected $(lsb_release -sir)"
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
         module use /home/srinivm/software/modulefiles
         module load emacs/24.3
     else
-        echo "Unkown Linux Distribution"
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Unkown Linux Distribution"
+        fi
     fi
 
     alias emacs="emacsclient -nw -t"
