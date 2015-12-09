@@ -459,7 +459,14 @@ if [ $(uname) == "Linux" ]; then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
         fi
-        module use /home/srinivm/software/modulefiles
+        module use /home/srinivm/SL6/modulefiles
+        module load emacs/24.3
+    elif [ "$(lsb_release -sir)" == "SUSE LINUX 11" ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
+        module use /home/srinivm/SUSE/modulefiles
         module load emacs/24.3
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
