@@ -407,7 +407,7 @@ export GOPATH=[$HOME/develop/github/how-to-go]
 export PATH=$PATH:$GOPATH/bin
 # }}}
 
-export JAVA_HOME=$(/usr/libexec/java_home)
+#export JAVA_HOME=$(/usr/libexec/java_home)
 
 
 ### Madhu's Customizations
