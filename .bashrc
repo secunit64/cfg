@@ -446,19 +446,21 @@ if [ $(uname) == "Linux" ]; then
     # if [ -f /etc/bashrc ]; then
     #	. /etc/bashrc
     # fi
-    source /usr/share/Modules/init/bash
+
     umask 002
     if [ "$(lsb_release -sir)" == "CentOS 7.1.1503" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
         fi
+        source /usr/share/Modules/init/bash
         module use /home/srinivm/CentOS7/modulefiles
     elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
         fi
+        source /usr/share/Modules/init/bash
         module use /home/srinivm/SL6/modulefiles
         module load emacs/24.3
     elif [ "$(lsb_release -sir)" == "SUSE LINUX 11" ]
@@ -468,6 +470,7 @@ if [ $(uname) == "Linux" ]; then
         fi
         module use /home/srinivm/SUSE/modulefiles
         module load emacs/24.3
+        module load git
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
