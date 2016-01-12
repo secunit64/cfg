@@ -448,7 +448,7 @@ if [ $(uname) == "Linux" ]; then
     # fi
 
     umask 002
-    if [ "$(lsb_release -sir)" == "CentOS 7.1.1503" ]
+    if [ "$(lsb_release -sir)" == "CentOS 7.2.1511" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
@@ -469,6 +469,7 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected $(lsb_release -sir)"
         fi
         module use /home/srinivm/SUSE/modulefiles
+        module use /project/k1033/modulefiles
         module load emacs/24.3
         module load git
     else
@@ -477,15 +478,15 @@ if [ $(uname) == "Linux" ]; then
         fi
     fi
 
-    alias emacs="emacsclient -nw -t"
-    alias kill-emacs="emacsclient -e '(kill-emacs)'"
-    export ALTERNATE_EDITOR=""
-    export EDITOR="emacsclient -nw -t"
-    export VISUAL="emacsclient -nw -t"
+    #alias emacs="emacsclient -nw -t"
+    #alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    #export ALTERNATE_EDITOR=""
+    #export EDITOR="emacsclient -nw -t"
+    #export VISUAL="emacsclient -nw -t"
     export LP_ENABLE_TEMP=0
 
     # added by Miniconda 3.16.0 installer
-    export PATH="/home/srinivm/miniconda/bin:$PATH"
+    #export PATH="/home/srinivm/miniconda/bin:$PATH"
 
 fi
 # }}}
