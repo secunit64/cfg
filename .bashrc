@@ -462,7 +462,7 @@ if [ $(uname) == "Linux" ]; then
         fi
         source /usr/share/Modules/init/bash
         module use /home/srinivm/SL6/modulefiles
-        module load emacs/24.3
+        module load emacs/24.5
     elif [ "$(lsb_release -sir)" == "SUSE LINUX 11" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
@@ -478,11 +478,11 @@ if [ $(uname) == "Linux" ]; then
         fi
     fi
 
-    #alias emacs="emacsclient -nw -t"
-    #alias kill-emacs="emacsclient -e '(kill-emacs)'"
-    #export ALTERNATE_EDITOR=""
-    #export EDITOR="emacsclient -nw -t"
-    #export VISUAL="emacsclient -nw -t"
+    alias emacs="emacsclient -nw -t"
+    alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    export ALTERNATE_EDITOR=""
+    export EDITOR="emacsclient -nw -t"
+    export VISUAL="emacsclient -nw -t"
     export LP_ENABLE_TEMP=0
 
     # added by Miniconda 3.16.0 installer
