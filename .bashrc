@@ -471,3 +471,6 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
+
+
+. /home/smadhueagle/torch/install/bin/torch-activate
