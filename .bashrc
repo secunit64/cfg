@@ -407,7 +407,7 @@ export GOPATH=[$HOME/develop/github/how-to-go]
 export PATH=$PATH:$GOPATH/bin
 # }}}
 
-export JAVA_HOME=$(/usr/libexec/java_home)
+#export JAVA_HOME=$(/usr/libexec/java_home)
 
 
 ### Madhu's Customizations
@@ -431,9 +431,11 @@ if [ $(uname) == "Darwin" ]; then
 
     # added by Anaconda 2.3.0 installer
     export PATH="/Users/srinivm/anaconda/bin:$PATH"
-    export PATH=~/develop/github/torch/install/bin:$PATH  # Added automatically by torch-dist
-    export LD_LIBRARY_PATH=~/develop/github/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
-    export DYLD_LIBRARY_PATH=~/develop/github/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
+    # by torch installer
+    . /Users/srinivm/develop/torch/install/bin/torch-activate
+    #export PATH=~/develop/github/torch/install/bin:$PATH  # Added automatically by torch-dist
+    #export LD_LIBRARY_PATH=~/develop/github/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
+    #export DYLD_LIBRARY_PATH=~/develop/github/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
 
 fi
 # }}}
@@ -444,19 +446,36 @@ if [ $(uname) == "Linux" ]; then
     # if [ -f /etc/bashrc ]; then
     #	. /etc/bashrc
     # fi
-    source /usr/share/Modules/init/bash
+
     umask 002
-    if [ "$(lsb_release -sir)" == "CentOS 7.1.1503" ]
+    if [ "$(lsb_release -sir)" == "CentOS 7.2.1511" ]
     then
-        echo "Detected $(lsb_release -sir)"
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
+        source /usr/share/Modules/init/bash
         module use /home/srinivm/CentOS7/modulefiles
     elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
     then
-        echo "Detected $(lsb_release -sir)"
-        module use /home/srinivm/software/modulefiles
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
+        source /usr/share/Modules/init/bash
+        module use /home/srinivm/SL6/modulefiles
+        module load emacs/24.5
+    elif [ "$(lsb_release -sir)" == "SUSE LINUX 11" ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
+        module use /home/srinivm/SUSE/modulefiles
+        module use /project/k1033/modulefiles
         module load emacs/24.3
+        module load git
     else
-        echo "Unkown Linux Distribution"
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Unkown Linux Distribution"
+        fi
     fi
 
     alias emacs="emacsclient -nw -t"
@@ -467,7 +486,7 @@ if [ $(uname) == "Linux" ]; then
     export LP_ENABLE_TEMP=0
 
     # added by Miniconda 3.16.0 installer
-    export PATH="/home/srinivm/miniconda/bin:$PATH"
+    #export PATH="/home/srinivm/miniconda/bin:$PATH"
 
 fi
 # }}}
