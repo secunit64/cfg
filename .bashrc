@@ -455,6 +455,8 @@ if [ $(uname) == "Linux" ]; then
         fi
         source /usr/share/Modules/init/bash
         module use /home/srinivm/CentOS7/modulefiles
+        # added by Miniconda 3.16.0 installer
+        #export PATH="/home/srinivm/miniconda/bin:$PATH"
     elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
@@ -472,6 +474,12 @@ if [ $(uname) == "Linux" ]; then
         module use /project/k1033/modulefiles
         module load emacs/24.3
         module load git
+    elif [ "$(hostname)" == "phoenix" ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected host $(hostname)"
+        fi
+        . /home/smadhueagle/torch/install/bin/torch-activate
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
@@ -485,11 +493,9 @@ if [ $(uname) == "Linux" ]; then
     export VISUAL="emacsclient -nw -t"
     export LP_ENABLE_TEMP=0
 
-    # added by Miniconda 3.16.0 installer
-    #export PATH="/home/srinivm/miniconda/bin:$PATH"
 
 fi
 # }}}
 
 
-. /home/smadhueagle/torch/install/bin/torch-activate
+
