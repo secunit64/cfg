@@ -431,12 +431,6 @@ if [ $(uname) == "Darwin" ]; then
 
     # added by Anaconda 2.3.0 installer
     export PATH="/Users/srinivm/anaconda/bin:$PATH"
-    # by torch installer
-    . /Users/srinivm/develop/torch/install/bin/torch-activate
-    #export PATH=~/develop/github/torch/install/bin:$PATH  # Added automatically by torch-dist
-    #export LD_LIBRARY_PATH=~/develop/github/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
-    #export DYLD_LIBRARY_PATH=~/develop/github/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
-
 fi
 # }}}
 
@@ -496,6 +490,3 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
-
-
-
