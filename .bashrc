@@ -431,12 +431,16 @@ if [ $(uname) == "Darwin" ]; then
 
     # added by Anaconda 2.3.0 installer
     export PATH="/Users/srinivm/anaconda/bin:$PATH"
+
+    #awscli tools
+    complete -C aws_completer aws
 fi
 # }}}
 
 # Linux specific config {{{
 if [ $(uname) == "Linux" ]; then
     # Source global definitions
+
     # if [ -f /etc/bashrc ]; then
     #	. /etc/bashrc
     # fi
