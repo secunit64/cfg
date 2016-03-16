@@ -441,11 +441,14 @@ fi
 if [ $(uname) == "Linux" ]; then
     # Source global definitions
 
-    # if [ -f /etc/bashrc ]; then
-    #	. /etc/bashrc
-    # fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 
     umask 002
+
     if [ "$(lsb_release -sir)" == "CentOS 7.2.1511" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
@@ -478,6 +481,14 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected host $(hostname)"
         fi
         . /home/smadhueagle/torch/install/bin/torch-activate
+    elif [ "$(hostname)" == "ip-172-31-1-152" ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected host $(hostname)"
+        fi
+        module use /home/srinivm/Ubuntu-14.04/modulefiles
+        module load erlang/18.2.1
+        module load elixir/1.2.3
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
