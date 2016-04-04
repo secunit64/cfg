@@ -434,6 +434,10 @@ if [ $(uname) == "Darwin" ]; then
 
     #awscli tools
     complete -C aws_completer aws
+
+    # This is required for using cuda
+    export CUDNN_LIB_DIR=/usr/local/cuda/lib/
+    export DYLD_LIBRARY_PATH=/usr/local/cuda/lib/:$DYLD_LIBRARY_PATH
 fi
 # }}}
 
