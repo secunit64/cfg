@@ -437,6 +437,10 @@ if [ $(uname) == "Darwin" ]; then
 
     #rustup
     export PATH="$HOME/.cargo/bin:$PATH"
+    # This is required for using cuda
+    export CUDNN_LIB_DIR=/usr/local/cuda/lib/
+    export DYLD_LIBRARY_PATH=/usr/local/cuda/lib/:$DYLD_LIBRARY_PATH
+
 fi
 # }}}
 
