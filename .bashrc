@@ -434,6 +434,9 @@ if [ $(uname) == "Darwin" ]; then
 
     #awscli tools
     complete -C aws_completer aws
+
+    #rustup
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
 # }}}
 
