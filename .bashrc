@@ -465,6 +465,8 @@ if [ $(uname) == "Linux" ]; then
         fi
         source /usr/share/Modules/init/bash
         module use /home/srinivm/CentOS7/modulefiles
+        module use /var/remote/projects/software/modules/sets
+        module load emacs/24.5
         # added by Miniconda 3.16.0 installer
         #export PATH="/home/srinivm/miniconda/bin:$PATH"
     elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
