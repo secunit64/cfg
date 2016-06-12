@@ -468,6 +468,7 @@ if [ $(uname) == "Linux" ]; then
         module load emacs/24.5
         #rustup
         export PATH="$HOME/.cargo/bin:$PATH"
+        module use /var/remote/projects/software/modules/sets
         # added by Miniconda 3.16.0 installer
         #export PATH="/home/srinivm/miniconda/bin:$PATH"
     elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
