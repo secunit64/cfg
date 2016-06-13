@@ -455,8 +455,6 @@ if [ $(uname) == "Linux" ]; then
     fi
 
     umask 002
-    # rustup.rs needs this
-    export PATH="$HOME/.cargo/bin:$PATH"
 
     if [ "$(lsb_release -sir)" == "CentOS 7.2.1511" ]
     then
@@ -488,12 +486,10 @@ if [ $(uname) == "Linux" ]; then
         module use /project/k1033/modulefiles
         module load emacs/24.3
         module load git
-    elif [ "$(hostname)" == "phoenix" ]
-    then
-        if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected host $(hostname)"
-        fi
-        . /home/smadhueagle/torch/install/bin/torch-activate
+        # rustup.rs needs this
+        export CARGO_HOME=/lustre/project/k1033/software/rust/.cargo
+        export PATH=$CARGO_HOME/bin:$PATH
+        export RUSTUP_HOME=/lustre/project/k1033/software/rust/.rustup
     elif [ "$(lsb_release -sir)" == $'Ubuntu\n14.04' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
@@ -501,6 +497,8 @@ if [ $(uname) == "Linux" ]; then
         fi
         module use /home/srinivm/Ubuntu-14.04/modulefiles
         module load elixir/1.2.5
+        # rustup.rs needs this
+        export PATH="$HOME/.cargo/bin:$PATH"
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
