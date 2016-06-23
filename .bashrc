@@ -415,7 +415,7 @@ export PATH=$PATH:$GOPATH/bin
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
     # npm from nodejs
-    export PATH=/usr/local/share/npm/bin:$PATH
+    # export PATH=/usr/local/share/npm/bin:$PATH
     # homebrew python 2.7
     # export PATH=/usr/local/share/python:$PATH
     # X11 applications
@@ -440,6 +440,10 @@ if [ $(uname) == "Darwin" ]; then
     # This is required for using cuda
     export CUDNN_LIB_DIR=/usr/local/cuda/lib/
     export DYLD_LIBRARY_PATH=/usr/local/cuda/lib/:$DYLD_LIBRARY_PATH
+
+    #nodejs and nvm
+    export NVM_DIR="$HOME/.nvm"
+    . "$(brew --prefix nvm)/nvm.sh"
 
 fi
 # }}}
