@@ -499,6 +499,10 @@ if [ $(uname) == "Linux" ]; then
         module load elixir/1.2.5
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
+        # nvm needs this
+        export NVM_DIR="/home/srinivm/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
