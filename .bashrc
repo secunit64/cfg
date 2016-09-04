@@ -504,8 +504,7 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected host Ubuntu 14.04"
         fi
         module use /home/srinivm/Ubuntu-14.04/modulefiles
-        module load elixir/1.2.5
-        # rustup.rs
+        # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
