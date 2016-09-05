@@ -478,9 +478,10 @@ if [ $(uname) == "Linux" ]; then
         #rustup
         export PATH="$HOME/.cargo/bin:$PATH"
         module use /var/remote/projects/software/modules/sets
-        # added by Miniconda 3.16.0 installer
-        #export PATH="/home/srinivm/miniconda/bin:$PATH"
-    elif [ "$(lsb_release -sir)" == "Scientific 6.7" ]
+        # nvm needs this
+        export NVM_DIR="/home/srinivm/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    elif [ "$(lsb_release -sir)" == "Scientific 6.8" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
@@ -488,6 +489,9 @@ if [ $(uname) == "Linux" ]; then
         source /usr/share/Modules/init/bash
         module use /home/srinivm/SL6/modulefiles
         module load emacs/24.5
+        # nvm needs this
+        export NVM_DIR="/home/srinivm/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
     elif [ "$(lsb_release -sir)" == "SUSE LINUX 11" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
@@ -507,9 +511,12 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected host Ubuntu 14.04"
         fi
         module use /home/srinivm/Ubuntu-14.04/modulefiles
-        module load elixir/1.2.5
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
+        # nvm needs this
+        export NVM_DIR="/home/srinivm/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
