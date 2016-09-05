@@ -445,6 +445,13 @@ if [ $(uname) == "Darwin" ]; then
     export NVM_DIR="$HOME/.nvm"
     . "$(brew --prefix nvm)/nvm.sh"
 
+    #Lmod setup on osx
+    if [ -f /usr/local/opt/lmod/init/profile ]; then
+        . /usr/local/opt/lmod/init/profile
+    fi
+    module use ~/OSX/modulefiles
+
+
 fi
 # }}}
 
