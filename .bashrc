@@ -499,7 +499,7 @@ if [ $(uname) == "Linux" ]; then
         fi
         module use /home/srinivm/SUSE/modulefiles
         module use /project/k1033/modulefiles
-        module load emacs/24.3
+        module load emacs/24.5
         module load git
         # rustup.rs needs this
         export CARGO_HOME=/lustre/project/k1033/software/rust/.cargo
