@@ -473,7 +473,9 @@ if [ $(uname) == "Linux" ]; then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
         fi
-        source /usr/share/Modules/init/bash
+        # setup Lmod
+        source /usr/share/lmod/6.3.4/init/profile
+
         module use /home/srinivm/CentOS7/modulefiles
         module load emacs/24.5
         #rustup
@@ -512,6 +514,8 @@ if [ $(uname) == "Linux" ]; then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected host Ubuntu 14.04"
         fi
+        #MADHU - need to setup Lmod here as well.
+
         module use /home/srinivm/Ubuntu-14.04/modulefiles
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
