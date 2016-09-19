@@ -499,6 +499,7 @@ if [ $(uname) == "Linux" ]; then
         fi
         module use /home/srinivm/SUSE/modulefiles
         module use /project/k1033/modulefiles
+        module use /lustre/project/k1033/madhu/modulefiles
         module load emacs/24.5
         module load git
         # rustup.rs needs this
