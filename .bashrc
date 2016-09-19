@@ -451,7 +451,8 @@ if [ $(uname) == "Darwin" ]; then
     fi
     module use ~/OSX/modulefiles
 
-
+    # activate torch7
+    . ~/develop/torch/install/bin/torch-activate
 fi
 # }}}
 
