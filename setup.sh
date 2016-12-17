@@ -6,6 +6,10 @@ ln -sf ~/develop/cfg/.emacs.d ~/.emacs.d
 ln -sf ~/develop/cfg/.ssh/config ~/.ssh/config
 ln -sf ~/develop/cfg/.gitconfig ~/.gitconfig
 ln -sf ~/develop/cfg/.aws ~/.aws
+mkdir ~/.matplotlib
+ln -sf ~/develop/cfg/matplotlibrc ~/.matplotlib/matplotlibrc
+#mkdir ~/.easybuild
+#ln -sf ~/develop/cfg/easybuild
 cd ~/.ssh && chmod 644 config
 cd ~/develop/cfg/
 ln -sf ~/develop/cfg/.liquidprompt/liquidprompt ~/.liquidprompt

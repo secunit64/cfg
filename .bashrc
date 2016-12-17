@@ -451,7 +451,8 @@ if [ $(uname) == "Darwin" ]; then
     fi
     module use ~/OSX/modulefiles
 
-
+    # activate torch7
+    . ~/develop/torch/install/bin/torch-activate
 fi
 # }}}
 
@@ -472,7 +473,9 @@ if [ $(uname) == "Linux" ]; then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
         fi
-        source /usr/share/Modules/init/bash
+        # setup Lmod
+        source /usr/share/lmod/6.3.4/init/profile
+
         module use /home/srinivm/CentOS7/modulefiles
         module load emacs/24.5
         #rustup
@@ -499,7 +502,8 @@ if [ $(uname) == "Linux" ]; then
         fi
         module use /home/srinivm/SUSE/modulefiles
         module use /project/k1033/modulefiles
-        module load emacs/24.3
+        module use /lustre/project/k1033/madhu/modulefiles
+        module load emacs/24.5
         module load git
         # rustup.rs needs this
         export CARGO_HOME=/lustre/project/k1033/software/rust/.cargo
@@ -510,6 +514,8 @@ if [ $(uname) == "Linux" ]; then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected host Ubuntu 14.04"
         fi
+        #MADHU - need to setup Lmod here as well.
+
         module use /home/srinivm/Ubuntu-14.04/modulefiles
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
