@@ -452,7 +452,7 @@ if [ $(uname) == "Darwin" ]; then
     module use ~/OSX/modulefiles
 
     # activate torch7
-    . ~/develop/torch/install/bin/torch-activate
+    #. ~/develop/torch/install/bin/torch-activate
 fi
 # }}}
 
