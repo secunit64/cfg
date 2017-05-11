@@ -430,13 +430,14 @@ if [ $(uname) == "Darwin" ]; then
     export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
     # added by Anaconda 2.3.0 installer
-    export PATH="/Users/srinivm/anaconda/bin:$PATH"
+    export PATH="/Users/srinivm/anaconda3/bin:$PATH"
 
     #awscli tools
     complete -C aws_completer aws
 
-    #rustup
+    #rustup - basically contents of $HOME/.cargo/env
     export PATH="$HOME/.cargo/bin:$PATH"
+
     # This is required for using cuda
     export CUDNN_LIB_DIR=/usr/local/cuda/lib/
     export DYLD_LIBRARY_PATH=/usr/local/cuda/lib/:$DYLD_LIBRARY_PATH
@@ -450,6 +451,7 @@ if [ $(uname) == "Darwin" ]; then
         . /usr/local/opt/lmod/init/profile
     fi
     module use ~/OSX/modulefiles
+    test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
     # activate torch7
     #. ~/develop/torch/install/bin/torch-activate
