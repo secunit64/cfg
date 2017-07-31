@@ -1,21 +1,21 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
-	url = https://github.com/smadhueagle/oh-my-zsh.git
+	url = git@github.com:vyslexic/oh-my-zsh.git
 [submodule ".liquidprompt"]
 	path = .liquidprompt
-	url = https://github.com/smadhueagle/liquidprompt.git
+	url = git@github.com:vyslexic/liquidprompt.git
 [submodule ".oh-my-fish"]
 	path = .oh-my-fish
-	url = https://github.com/smadhueagle/oh-my-fish.git
+	url = git@github.com:vyslexic/oh-my-fish.git
 [submodule ".emacs.d"]
 	path = .emacs.d
-	url = https://github.com/smadhueagle/prelude.git
+	url = git@github.com:vyslexic/prelude.git
 [submodule ".vim/bundle/vundle"]
 	path = .vim/bundle/vundle
-	url = https://github.com/smadhueagle/vundle.git
+	url = git@github.com:vyslexic/vundle.git
 [submodule ".ecb"]
 	path = .ecb
-	url =  https://github.com/smadhueagle/ecb.git 
+	url =  git@github.com:vyslexic/ecb.git 
 [submodule ".ssh"]
 	path = .ssh
 	url = git@gitlab.vyslexia.org:vyslexic/ssh-config.git
