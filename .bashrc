@@ -429,8 +429,8 @@ if [ $(uname) == "Darwin" ]; then
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
     export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
-    # added by Anaconda 2.3.0 installer
-    export PATH="/Users/srinivm/anaconda3/bin:$PATH"
+    # added by Anaconda installer
+    export PATH="/Users/srinivm/anaconda/bin:$PATH"
 
     #awscli tools
     complete -C aws_completer aws
@@ -541,3 +541,6 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
+
+# added by Anaconda3 4.4.0 installer
+export PATH="/Users/srinivm/anaconda/bin:$PATH"
