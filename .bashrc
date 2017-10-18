@@ -469,6 +469,7 @@ if [ $(uname) == "Linux" ]; then
     fi
 
     umask 002
+
     # Options for KVL CentOS7 Systems
     if [ "$(lsb_release -sir)" == "CentOS 7.4.1708" ]
     then
@@ -487,7 +488,7 @@ if [ $(uname) == "Linux" ]; then
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
     # Options for Dragon Cluster Systems
-    if [ "$(lsb_release -sir)" == "CentOS 7.3.1611" ]
+    elif [ "$(lsb_release -sir)" == "CentOS 7.3.1611" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
