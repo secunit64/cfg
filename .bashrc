@@ -470,13 +470,13 @@ if [ $(uname) == "Linux" ]; then
 
     umask 002
 
-    if [ "$(lsb_release -sir)" == "CentOS 7.2.1511" ]
+    if [ "$(lsb_release -sir)" == "CentOS 7.4.1708" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
         fi
         # setup Lmod
-        source /usr/share/lmod/6.3.4/init/profile
+        source /usr/share/lmod/lmod/init/profile
 
         module use /home/srinivm/CentOS7/modulefiles
         module load emacs/24.5
