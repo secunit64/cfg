@@ -469,8 +469,26 @@ if [ $(uname) == "Linux" ]; then
     fi
 
     umask 002
-
+    # Options for KVL CentOS7 Systems
     if [ "$(lsb_release -sir)" == "CentOS 7.4.1708" ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected $(lsb_release -sir)"
+        fi
+        # setup Lmod
+        source /usr/share/lmod/lmod/init/profile
+
+        module use /home/srinivm/CentOS7/modulefiles
+        module load emacs/24.5
+        #rustup
+        export PATH="$HOME/.cargo/bin:$PATH"
+        module use /var/remote/projects/software/modules/sets
+        # nvm needs this
+        export NVM_DIR="/home/srinivm/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    elif [ "$(lsb_release -sir)" == "Scientific 6.8" ]
+    # Options for Dragon Cluster Systems
+    if [ "$(lsb_release -sir)" == "CentOS 7.3.1611" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
