@@ -500,7 +500,7 @@ if [ $(uname) == "Linux" ]; then
         module load emacs/24.5
         #rustup
         export PATH="$HOME/.cargo/bin:$PATH"
-        module use /var/remote/projects/software/modules/sets
+        # module use /var/remote/projects/software/modules/sets
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
