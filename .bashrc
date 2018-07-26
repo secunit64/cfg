@@ -430,7 +430,7 @@ if [ $(uname) == "Darwin" ]; then
     export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
     # added by Anaconda installer
-    export PATH="/Users/srinivm/anaconda/bin:$PATH"
+    export PATH=/usr/local/anaconda3/bin:"$PATH"
 
     #awscli tools
     complete -C aws_completer aws
@@ -444,7 +444,8 @@ if [ $(uname) == "Darwin" ]; then
 
     #nodejs and nvm
     export NVM_DIR="$HOME/.nvm"
-    . "$(brew --prefix nvm)/nvm.sh"
+    . "/usr/local/opt/nvm/nvm.sh"
+
 
     #Lmod setup on osx
     if [ -f /usr/local/opt/lmod/init/profile ]; then
@@ -515,7 +516,7 @@ if [ $(uname) == "Linux" ]; then
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    elif [ "$(lsb_release -sir)" == "SUSE LINUX 11" ]
+    elif [ "$(lsb_release -sir)" == "SUSE 12.3" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
