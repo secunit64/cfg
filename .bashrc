@@ -479,6 +479,7 @@ if [ $(uname) == "Linux" ]; then
         # setup Lmod
         source /usr/share/lmod/lmod/init/profile
 
+
         module use /home/srinivm/CentOS7/modulefiles
         module load emacs/24.5
         #rustup
@@ -494,10 +495,10 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected $(lsb_release -sir)"
         fi
         # setup Lmod
-        source /usr/share/lmod/lmod/init/profile
+        #source /usr/share/lmod/lmod/init/profile
 
-        module use /home/srinivm/CentOS7/modulefiles
-        module load emacs/24.5
+        module use /home/srinivm/IBEX/modulefiles
+        #module load emacs/24.5
         #rustup
         export PATH="$HOME/.cargo/bin:$PATH"
         # module use /var/remote/projects/software/modules/sets
