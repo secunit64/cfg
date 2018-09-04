@@ -472,7 +472,7 @@ if [ $(uname) == "Linux" ]; then
     umask 002
 
     # Options for KVL CentOS7 Systems
-    if [ "$(lsb_release -sir)" == "CentOS 7.4.1708" ]
+    if [ "$(lsb_release -sir)" == "CentOS 7.5.1804" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
@@ -489,7 +489,7 @@ if [ $(uname) == "Linux" ]; then
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    # Options for Dragon Cluster Systems
+    # Options for IBEX Cluster
     elif [ "$(lsb_release -sir)" == "CentOS 7.3.1611" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
