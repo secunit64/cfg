@@ -483,6 +483,8 @@ if [ $(uname) == "Linux" ]; then
 
         module use /home/srinivm/CentOS7/modulefiles
         module load emacs/24.5
+        #system scripts
+        export PATH="/scheduler/ibex/scripts/bin:$PATH"
         #rustup
         export PATH="$HOME/.cargo/bin:$PATH"
         module use /var/remote/projects/software/modules/sets
@@ -500,6 +502,10 @@ if [ $(uname) == "Linux" ]; then
 
         module use /home/srinivm/IBEX/modulefiles
         #module load emacs/24.5
+
+        #system scripts
+        export PATH="/scheduler/ibex/scripts/bin:$PATH"
+
         #rustup
         export PATH="$HOME/.cargo/bin:$PATH"
         # module use /var/remote/projects/software/modules/sets
@@ -514,6 +520,10 @@ if [ $(uname) == "Linux" ]; then
         source /usr/share/Modules/init/bash
         module use /home/srinivm/SL6/modulefiles
         module load emacs/24.5
+
+        #system scripts
+        export PATH="/scheduler/ibex/scripts/bin:$PATH"
+
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
