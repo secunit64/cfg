@@ -19,6 +19,3 @@
 [submodule ".ssh"]
 	path = .ssh
 	url = git@gitlab.vyslexia.org:vyslexic/ssh-config.git
-[submodule ".aws"]
-	path = .aws
-	url = git@gitlab.vyslexia.org:vyslexic/aws.git
