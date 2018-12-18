@@ -16,6 +16,3 @@
 [submodule ".ecb"]
 	path = .ecb
 	url =  git@github.com:vyslexic/ecb.git 
-[submodule ".ssh"]
-	path = .ssh
-	url = git@gitlab.vyslexia.org:vyslexic/ssh-config.git
