@@ -492,7 +492,7 @@ if [ $(uname) == "Linux" ]; then
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
     # Options for IBEX Cluster
-    elif [ "$(lsb_release -sir)" == "CentOS 7.3.1611" ]
+    elif [ "$(lsb_release -sir)" == "CentOS 7.5.1804" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
