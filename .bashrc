@@ -472,7 +472,7 @@ if [ $(uname) == "Linux" ]; then
     umask 002
 
     # Options for KVL CentOS7 Systems
-    if [ "$(lsb_release -sir)" == "CentOS 7.5.1804" ]
+    if [ "$(lsb_release -sir)" == "CentOS 7.6.1810" ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected $(lsb_release -sir)"
