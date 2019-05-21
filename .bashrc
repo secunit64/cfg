@@ -548,12 +548,40 @@ if [ $(uname) == "Linux" ]; then
         fi
         #MADHU - need to setup Lmod here as well.
 
+        #module use /home/srinivm/Ubuntu-14.04/modulefiles
+        # rustup.rs needs this
+        export PATH="$HOME/.cargo/bin:$PATH"
+        # nvm needs this
+        export NVM_DIR="/home/srinivm/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  elif [ "$(lsb_release -sir)" == $'Ubuntu\n18.04' ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected host Ubuntu 18.04"
+        fi
+        #MADHU - need to setup Lmod here as well.
+
         module use /home/srinivm/Ubuntu-14.04/modulefiles
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+	# >>> conda initialize >>>
+	# !! Contents within this block are managed by 'conda init' !!
+	__conda_setup="$('/home/srinivm/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+	if [ $? -eq 0 ]; then
+	    eval "$__conda_setup"
+	else
+	    if [ -f "/home/srinivm/anaconda3/etc/profile.d/conda.sh" ]; then
+	        . "/home/srinivm/anaconda3/etc/profile.d/conda.sh"
+	    else
+	        export PATH="/home/srinivm/anaconda3/bin:$PATH"
+	    fi
+	fi
+	unset __conda_setup
+	# <<< conda initialize <<<
 
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
@@ -572,5 +600,4 @@ if [ $(uname) == "Linux" ]; then
 fi
 # }}}
 
-# added by Anaconda3 4.4.0 installer
-export PATH="/Users/srinivm/anaconda/bin:$PATH"
+
