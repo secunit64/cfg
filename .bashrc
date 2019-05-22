@@ -560,8 +560,9 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected host Ubuntu 18.04"
         fi
         #MADHU - need to setup Lmod here as well.
+	source /usr/share/lmod/lmod/init/profile
+        module use /home/srinivm/Ubuntu-18.04/modulefiles
 
-        module use /home/srinivm/Ubuntu-14.04/modulefiles
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
         # nvm needs this
@@ -582,7 +583,6 @@ if [ $(uname) == "Linux" ]; then
 	fi
 	unset __conda_setup
 	# <<< conda initialize <<<
-
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
@@ -601,3 +601,4 @@ fi
 # }}}
 
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
