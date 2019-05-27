@@ -429,17 +429,16 @@ if [ $(uname) == "Darwin" ]; then
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
     export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
-    # added by Anaconda installer
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/Users/srinivm/anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/Users/srinivm/anaconda/etc/profile.d/conda.sh" ]; then
-            . "/Users/srinivm/anaconda/etc/profile.d/conda.sh"
+        if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/usr/local/anaconda3/etc/profile.d/conda.sh"
         else
-            export PATH="/Users/srinivm/anaconda/bin:$PATH"
+            export PATH="/usr/local/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
