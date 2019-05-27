@@ -503,6 +503,22 @@ if [ $(uname) == "Linux" ]; then
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+        # >>> conda initialize >>>
+        # !! Contents within this block are managed by 'conda init' !!
+        __conda_setup="$('/home/srinivm/CentOS7/software/anaconda/python3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__conda_setup"
+        else
+            if [ -f "/home/srinivm/CentOS7/software/anaconda/python3/etc/profile.d/conda.sh" ]; then
+                . "/home/srinivm/CentOS7/software/anaconda/python3/etc/profile.d/conda.sh"
+            else
+                export PATH="/home/srinivm/CentOS7/software/anaconda/python3/bin:$PATH"
+            fi
+        fi
+        unset __conda_setup
+        # <<< conda initialize <<<
+
     # Options for IBEX Cluster
     elif [ "$(lsb_release -sir)" == "CentOS 7.5.1804" ]
     then
@@ -572,7 +588,7 @@ if [ $(uname) == "Linux" ]; then
             echo "Detected host Ubuntu 18.04"
         fi
         #MADHU - need to setup Lmod here as well.
-	source /usr/share/lmod/lmod/init/profile
+	      source /usr/share/lmod/lmod/init/profile
         module use /home/srinivm/Ubuntu-18.04/modulefiles
 
         # rustup.rs needs this
@@ -581,20 +597,20 @@ if [ $(uname) == "Linux" ]; then
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-	# >>> conda initialize >>>
-	# !! Contents within this block are managed by 'conda init' !!
-	__conda_setup="$('/home/srinivm/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-	if [ $? -eq 0 ]; then
-	    eval "$__conda_setup"
-	else
-	    if [ -f "/home/srinivm/anaconda3/etc/profile.d/conda.sh" ]; then
-	        . "/home/srinivm/anaconda3/etc/profile.d/conda.sh"
-	    else
-	        export PATH="/home/srinivm/anaconda3/bin:$PATH"
-	    fi
-	fi
-	unset __conda_setup
-	# <<< conda initialize <<<
+        # >>> conda initialize >>>
+        # !! Contents within this block are managed by 'conda init' !!
+        __conda_setup="$('/home/srinivm/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__conda_setup"
+        else
+            if [ -f "/home/srinivm/anaconda3/etc/profile.d/conda.sh" ]; then
+                . "/home/srinivm/anaconda3/etc/profile.d/conda.sh"
+            else
+                export PATH="/home/srinivm/anaconda3/bin:$PATH"
+            fi
+        fi
+        unset __conda_setup
+        # <<< conda initialize <<<
     else
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Unkown Linux Distribution"
