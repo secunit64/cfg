@@ -8,6 +8,7 @@ ln -sf ~/develop/cfg/.gitconfig ~/.gitconfig
 ln -sf ~/develop/cfg/.aws ~/.aws
 mkdir ~/.matplotlib
 ln -sf ~/develop/cfg/matplotlibrc ~/.matplotlib/matplotlibrc
+ln -s ~/develop/cfg/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 #mkdir ~/.easybuild
 #ln -sf ~/develop/cfg/easybuild
 cd ~/.ssh && chmod 644 config
