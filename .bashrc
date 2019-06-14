@@ -427,7 +427,7 @@ if [ $(uname) == "Darwin" ]; then
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     export EDITOR="emacsclient --alternate-editor=\"\" -t"
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
-    export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
+    # export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
@@ -456,8 +456,8 @@ if [ $(uname) == "Darwin" ]; then
 
     #nodejs and nvm
     export NVM_DIR="$HOME/.nvm"
-    . "/usr/local/opt/nvm/nvm.sh"
-
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
     #Lmod setup on osx
     if [ -f /usr/local/opt/lmod/init/profile ]; then
@@ -628,5 +628,3 @@ if [ $(uname) == "Linux" ]; then
 fi
 # }}}
 
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
