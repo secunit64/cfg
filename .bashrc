@@ -386,12 +386,7 @@ if [[ $(hostname | cut -d. -f1) == "pother" ]]; then
 fi
 # }}}
 # }}}
-# rvm setup {{{
-if [ -e $HOME/.rvm/scripts/rvm ]; then
-  source $HOME/.rvm/scripts/rvm
-  PATH=$PATH:$HOME/.rvm/bin
-fi
-# }}}
+
 # liquid prompt {{{
 source $HOME/.liquidprompt
 #LP_ENABLE_SVN=0
@@ -414,10 +409,7 @@ export PATH=$PATH:$GOPATH/bin
 
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
-    # npm from nodejs
-    # export PATH=/usr/local/share/npm/bin:$PATH
-    # homebrew python 2.7
-    # export PATH=/usr/local/share/python:$PATH
+
     # X11 applications
     export PATH=/opt/X11/bin:$PATH
     # cuda sdk
@@ -444,8 +436,12 @@ if [ $(uname) == "Darwin" ]; then
     unset __conda_setup
     # <<< conda initialize <<<
 
-    #awscli tools
-    complete -C aws_completer aws
+    # rvm setup {{{
+    if [ -e $HOME/.rvm/scripts/rvm ]; then
+      source $HOME/.rvm/scripts/rvm
+      PATH=$PATH:$HOME/.rvm/bin
+    fi
+    # }}}
 
     #rustup - basically contents of $HOME/.cargo/env
     export PATH="$HOME/.cargo/bin:$PATH"
@@ -464,10 +460,10 @@ if [ $(uname) == "Darwin" ]; then
         . /usr/local/opt/lmod/init/profile
     fi
     module use ~/OSX/modulefiles
+
     test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-    # activate torch7
-    #. ~/develop/torch/install/bin/torch-activate
+
 fi
 # }}}
 
@@ -628,3 +624,5 @@ if [ $(uname) == "Linux" ]; then
 fi
 # }}}
 
+
+export PATH="$HOME/.cargo/bin:$PATH"
