@@ -463,6 +463,9 @@ if [ $(uname) == "Darwin" ]; then
 
     test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
+    # osx common-lisp-jupyter
+    export PATH=$PATH:~/.roswell/bin
+
 
 fi
 # }}}
