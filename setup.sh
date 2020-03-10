@@ -5,7 +5,6 @@ ln -sf ~/develop/cfg/.bash_profile ~/.bash_profile
 ln -sf ~/develop/cfg/.emacs.d ~/.emacs.d
 ln -sf ~/develop/cfg/.ssh/config ~/.ssh/config
 ln -sf ~/develop/cfg/.gitconfig ~/.gitconfig
-ln -sf ~/develop/cfg/.aws ~/.aws
 mkdir ~/.matplotlib
 ln -sf ~/develop/cfg/matplotlibrc ~/.matplotlib/matplotlibrc
 ln -s ~/develop/cfg/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py

@@ -1,5 +1,5 @@
 # .bashrc
-# Author: Nicola Paolucci <nick@durdn.com>
+# Author: Madhu Srinivasan <madhu.srinivasan@outlook.com>
 # Source: http://github.com/durdn/cfg/.bashrc
 
 #Global options {{{
@@ -23,8 +23,6 @@ if [ -f /etc/bashrc ] && ! shopt -oq posix; then
     . /etc/bashrc
 fi
 
-#path should have durdn config bin folder
-export PATH=$HOME/cfg/bin:$PATH
 #set the terminal type to 256 colors
 export TERM=xterm-256color
 
@@ -40,58 +38,6 @@ export TERM=xterm-256color
         #tmux attach || break
     #done
 #fi
-# }}}
-# durdn/cfg related commands {{{
-function dur {
-  case $1 in
-  create|cr)
-    echo "disabled"
-    ;;
-  list|li)
-    curl --user $2:$3 https://api.bitbucket.org/1.0/user/repositories 2> /dev/null | grep "name" | sed -e 's/\"//g' | col 2 | sort | uniq | column
-    ;;
-  clone|cl)
-    git clone git@bitbucket.org:durdn/$2.git
-    ;;
-  install|i)
-    $HOME/cfg/install.sh
-    ;;
-  reinstall|re)
-    curl -Ls https://raw.github.com/durdn/cfg/master/install.sh | bash
-    ;;
-  move|mv)
-    git remote add bitbucket git@bitbucket.org:durdn/$(basename $(pwd)).git
-    git push --all bitbucket
-    ;;
-  trackall|tr)
-    #track all remote branches of a project
-    for remote in $(git branch -r | grep -v master ); do git checkout --track $remote ; done
-    ;;
-  key|k)
-    #track all remote branches of a project
-    ssh $2 'mkdir -p .ssh && cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub
-    ;;
-  fun|f)
-    #list all custom bash functions defined
-    typeset -F | col 3 | grep -v _ | xargs | fold -sw 60
-    ;;
-  def|d)
-    #show definition of function $1
-    typeset -f $2
-    ;;
-  help|h|*)
-    echo "[dur]dn shell automation tools - (c) 2011 Nicola Paolucci nick@durdn.com"
-    echo "commands available:"
-    echo " [cr]eate, [li]st, [cl]one"
-    echo " [i]nstall,[m]o[v]e, [re]install"
-    echo " [f]fun lists all bash functions defined in .bashrc"
-    echo " [def] <fun> lists definition of function defined in .bashrc"
-    echo " [k]ey <host> copies ssh key to target host"
-    echo " [tr]ackall], [h]elp"
-    ;;
-  esac
-}
-
 # }}}
 # Bashmarks from https://github.com/huyng/bashmarks (see copyright there) {{{
 
@@ -143,27 +89,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 # }}}
 #Global aliases  {{{
-alias gs='git status '
-alias ga='git add '
-alias gb='git branch '
-alias gc='git commit '
-alias gd='git diff '
-#alias go='git checkout '
-alias hla="cat ~/.hgrc | grep -m1 -A10000 alias | tail -n +2 | grep -m1 -B10000 '^\[' | sed '\$d'"
-alias stashup='git stash && git svn rebase && git stash apply'
-alias vimo='vim -O '
-alias laste='tail -1000 ~/.bash_history | grep ^vim | col 2'
-function list-patch {
-  git log --oneline --decorate --numstat -1 $1 | tail -n +2 | awk {'print $3'}
-}
-
-function svnlnc {
-  paste -d\  <(git svn log --oneline --show-commit $1 $2 $3 $4 | col 1) <(git log --pretty=format:%h\ %s\ [%cn] $1 $2 $3 $4)
-}
-
-function svnl {
-  paste -d\  <(git svn log --oneline --show-commit $1 $2 $3 $4 | col 1) <(git log --pretty=format:"%C(yellow)%h %Cgreen%ad%Cred%d %Creset%s%Cblue [%cn]" --date=short $1 $2 $3 $4)
-}
 
 function f {
   find . -type f | grep -v .svn | grep -v .git | grep -i $1
@@ -199,59 +124,9 @@ function xr {
   esac
 }
 
-# shows last modification dat for trunk and $1 branch
-function glm {
-  echo master $(git fl master $2 | grep -m1 Date:)
-  echo $1 $(git fl $1 $2 | grep -m1 Date:)
-}
-
-# git rename current branch and backup if overwritten
-function gmb {
-  curr_branch_name=$(git branch | grep \* | cut -c 3-);
-  if [ -z $(git branch | cut -c 3- | grep -x $1) ]; then
-    git branch -m $curr_branch_name $1
-  else
-    temp_branch_name=$1-old-$RANDOM;
-    echo target branch name already exists, renaming to $temp_branch_name
-    git branch -m $1 $temp_branch_name
-    git branch -m $curr_branch_name $1
-  fi
-}
-
-# git search for extension $1 and occurrence of string $2
-function gfe {
-  git f \.$1 | xargs grep -i $2 | less
-}
-
-#open with vim from a list of files, nth one (vim file number x)
-function vfn {
-  last_command=$(history 2 | head -1 | cut -d" " -f2- | cut -c 2-);
-  vim $($last_command | head -$1 | tail -1)
-}
-
-#autocomplete list of possible files and ask which one to open
-function gv {
-  search_count=1
-  search_command="git f"
-  search_result=$($search_command $1)
-  editor=gvim
-
-  for f in $search_result; do echo $search_count. $f;search_count=$(($search_count+1)); done
-
-  arr=($search_result)
-  case "${#arr[@]}" in
-    0)
-       ;;
-    1) nohup $editor ${search_result} 2>/dev/null &
-       ;;
-    *) echo "enter file number:"
-       read fn
-       nohup $editor ${arr[fn-1]} 2>/dev/null &
-       ;;
-  esac
-}
 
 # }}}
+
 # Linux specific config {{{
 if [ $(uname) == "Linux" ]; then
   shopt -s autocd
@@ -297,8 +172,6 @@ fi
 # }}}
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
-  #export PATH=/usr/local/mysql/bin:$HOME/bin:/opt/local/sbin:/opt/local/bin:$PATH
-  #export PATH=/Users/nick/.clj/bin:$PATH
   export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/Cellar/python/2.7.3/bin:/usr/local/share/python:$HOME/bin:$PATH
   export MANPATH=/opt/local/share/man:$MANPATH
 
@@ -312,79 +185,12 @@ if [ $(uname) == "Darwin" ]; then
   alias grp='grep -RIi'
   alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
 
-  #open macvim
-  function gvim {
-    if [ -e $1 ];
-      then open -a MacVim $@;
-      else touch $@ && open -a MacVim $@;
-    fi
-  }
-
-  #setup sqlplus
-  #export DYLD_LIBRARY_PATH="/opt/local/lib/oracle:/Users/nick/dev/apps/sqlplus-ic-10.2"
-  #export TNS_ADMIN="/Users/nick/dev/apps/sqlplus-ic-10.2"
-  #export PATH=/Users/nick/dev/apps/sqlplus-ic-10.2:$PATH
-
-  #project aliases
-  alias tarot="screen -c ./screen-tarot.config"
-  alias atg="screen -c ./screen-atg.config"
-
-  #sourcing
-
-  #source /Users/nick/dev/envs/boi-env/bin/activate
-  #source /Users/nick/.philips
-  #source git bash completion from homebrew on OSX
-  #source /usr/local/etc/bash_completion.d/git-completion.bash
-
-  #setup RVM on OSX
-  #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
-
-  #setup rbenv
-  if which rbenv > /dev/null; then
-    eval "$(rbenv init -)";
-    export PATH="$HOME/.rbenv/bin:$PATH"
-  fi
-
   #homebrew git autocompletions
   if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
     . `brew --prefix`/etc/bash_completion.d/git-completion.bash
   fi
 fi
 
-# }}}
-# MINGW32_NT-5.1 (winxp) specific config {{{
-if [ $(uname) == "MINGW32_NT-5.1" ]; then
-  alias ls='ls --color'
-  alias ll='ls -l --color'
-  alias la='ls -al --color'
-  alias less='less -R'
-  alias grep='grep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-fi
-# }}}
-# Clients configs {{{
-# Delixl config {{{
-if [[ $(uname -n) == "ubuntu" && $(whoami) == "developer" ]]; then
-  source ~/.delixl-aliases
-fi
-if [[ -e /etc/resolv.conf && $(cat /etc/resolv.conf | grep domain | col 2 | head -1) == 'delixl.ext' && $(uname) == "Darwin" ]]; then
-  echo "Setting route at DeliXL office";
-  sudo route add -net 145.7.5.0 -netmask 255.255.255.0 10.33.88.1
-  sudo route add -net 145.7.0.0 -netmask 255.255.255.0 10.33.88.1
-  sudo route add -net 10.33.0.0 -netmask 255.255.0.0   10.33.88.1
-fi
-# }}}
-# Atlassian config {{{
-if [[ $(hostname | cut -d. -f1) == "pother" ]]; then
-  export PATH="$HOME/dev/apps/maven2/bin:$PATH"
-  MAVEN_OPTS="-Xms256m -Xmx1g -XX:PermSize=128m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8"
-  export MAVEN_OPTS
-  source $HOME/.atlassian
-  export VIRTUAL_ENV_DISABLE_PROMPT=1
-  #source $HOME/dev/envs/generic/bin/activate
-fi
-# }}}
 # }}}
 
 # liquid prompt {{{
@@ -397,29 +203,17 @@ source $HOME/.liquidprompt
 #LP_ENABLE_PROXY=0
 #LP_USER_ALWAYS=0
 # }}}
-# golang setup {{{
-export GOPATH=[$HOME/develop/github/how-to-go]
-export PATH=$PATH:$GOPATH/bin
-# }}}
-
-#export JAVA_HOME=$(/usr/libexec/java_home)
-
 
 ### Madhu's Customizations
 
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
 
-    # X11 applications
-    export PATH=/opt/X11/bin:$PATH
-    # cuda sdk
-    export PATH=/usr/local/cuda/bin:$PATH
     #emacs
     alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     export EDITOR="emacsclient --alternate-editor=\"\" -t"
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
-    # export PKG_CONFIG_PATH="/usr/local/Cellar/python3/3.3.4/Frameworks/Python.framework/Versions/3.3/lib/pkgconfig:/usr/local/opt/qt5/lib/pkgconfig"
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
@@ -445,10 +239,6 @@ if [ $(uname) == "Darwin" ]; then
 
     #rustup - basically contents of $HOME/.cargo/env
     export PATH="$HOME/.cargo/bin:$PATH"
-
-    # This is required for using cuda
-    export CUDNN_LIB_DIR=/usr/local/cuda/lib/
-    export DYLD_LIBRARY_PATH=/usr/local/cuda/lib/:$DYLD_LIBRARY_PATH
 
     #nodejs and nvm
     export NVM_DIR="$HOME/.nvm"
