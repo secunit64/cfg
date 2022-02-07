@@ -1,0 +1,35 @@
+
+# Use custom format
+format = """
+[┌────────▌](bold green) \
+$directory\
+$rust\
+$package\
+$conda\
+$elixir\
+$nodejs\
+$python\
+$git_branch\
+$git_commit\
+$git_status
+[│](bold green)
+[└────────](bold green) """
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = false
+
+[git_branch]
+symbol = " "
+
+[git_status]
+untracked = ""
+ahead = "⇡${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+behind = "⇣${count}"
