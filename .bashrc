@@ -157,8 +157,6 @@ if [ $(uname) == "Linux" ]; then
   alias la='ls -al --color=auto'
   alias less='less -R'
 
-  #project aliases
-  #alias tarot="screen -c ./screen-tarot.config"
 
   if [ -d $HOME/.rbenv ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
@@ -193,16 +191,21 @@ fi
 
 # }}}
 
-# liquid prompt {{{
-source $HOME/.liquidprompt
-#LP_ENABLE_SVN=0
-#LP_ENABLE_FOSSIL=0
-#LP_ENABLE_BZR=0
-#LP_ENABLE_BATT=0
-#LP_ENABLE_LOAD=0
-#LP_ENABLE_PROXY=0
-#LP_USER_ALWAYS=0
+# starship {{{
+export PATH=~/.starship/bin:$PATH
+eval "$(starship init bash)"
 # }}}
+
+# # liquid prompt {{{
+# source $HOME/.liquidprompt
+# #LP_ENABLE_SVN=0
+# #LP_ENABLE_FOSSIL=0
+# #LP_ENABLE_BZR=0
+# #LP_ENABLE_BATT=0
+# #LP_ENABLE_LOAD=0
+# #LP_ENABLE_PROXY=0
+# #LP_USER_ALWAYS=0
+# # }}}
 
 ### Madhu's Customizations
 
