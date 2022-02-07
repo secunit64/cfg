@@ -5,14 +5,19 @@ ln -sf ~/develop/cfg/.bash_profile ~/.bash_profile
 ln -sf ~/develop/cfg/.emacs.d ~/.emacs.d
 ln -sf ~/develop/cfg/.ssh/config ~/.ssh/config
 ln -sf ~/develop/cfg/.gitconfig ~/.gitconfig
-mkdir ~/.matplotlib
+
+mkdir -p ~/.matplotlib
 ln -sf ~/develop/cfg/matplotlibrc ~/.matplotlib/matplotlibrc
 ln -s ~/develop/cfg/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
-#mkdir ~/.easybuild
-#ln -sf ~/develop/cfg/easybuild
+
 cd ~/.ssh && chmod 644 config
 cd ~/develop/cfg/
-ln -sf ~/develop/cfg/.liquidprompt/liquidprompt ~/.liquidprompt
-ln -sf ~/develop/cfg/.liquidprompt/liquidpromptrc-dist ~/.config/liquidpromptrc
-cd ~/develop/cfg/.ecb && make
+
+sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --help
+
+mkdir -p ~/.config
+mkdir -p ~/.starship/bin
+sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y -b ~/.starship/bin
+ln -sf ~/develop/cfg/starship/starship.toml ~/.config/starship.toml 
+
 cd ~
