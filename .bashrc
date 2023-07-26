@@ -374,19 +374,35 @@ if [ $(uname) == "Linux" ]; then
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  elif [ "$(lsb_release -sir)" == $'Ubuntu\n18.04' ]
+  elif [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected host Ubuntu 18.04"
+            echo "Detected host Ubuntu 22.04"
         fi
+
         #MADHU - need to setup Lmod here as well.
-	      source /usr/share/lmod/lmod/init/profile
-        module use /home/srinivm/Ubuntu-18.04/modulefiles
+	source /usr/share/lmod/lmod/init/profile
+        module use /home/madsrini/Ubuntu-22.04/modulefiles
+
+        # rocm paths - MADHU: This should really be a module
+        # export ROCM_PATH=/opt/rocm-5.4.3
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm-5.4.3/lib:/opt/rocm-5.4.3/lib64
+        # export PATH=$PATH:/opt/rocm-5.4.3/bin:/opt/rocm-5.4.3/opencl/bin
+
+        #rpr dev stuff - MADHU: This should really be a module
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/develop/gfx/FireRender/dist/release/bin/x86_64/
+        # export PATH=$PATH:~/develop/gfx/FireRender/dist/release/bin/x86_64/
+
+        # rtb paths - MADHU: This should really be a module
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/release
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/Release
+        # export PATH=$PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/Release
 
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
+        export PATH="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH"
         # nvm needs this
-        export NVM_DIR="/home/srinivm/.nvm"
+        export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
         # >>> conda initialize >>>
@@ -419,6 +435,3 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
-
-
-export PATH="$HOME/.cargo/bin:$PATH"
