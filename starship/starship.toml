@@ -33,3 +33,8 @@ untracked = ""
 ahead = "⇡${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 behind = "⇣${count}"
+
+[hostname]
+ssh_only = true
+format = '[$hostname](bold red) '
+disabled = false
