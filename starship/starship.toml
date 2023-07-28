@@ -1,7 +1,8 @@
 
 # Use custom format
 format = """
-[┌────────▌](bold green) \
+[┌─────▌](bold green) \
+$hostname\
 $directory\
 $rust\
 $package\
@@ -13,7 +14,7 @@ $git_branch\
 $git_commit\
 $git_status
 [│](bold green)
-[└────────](bold green) """
+[└─────](bold green) """
 
 # Wait 10 milliseconds for starship to check files under the current directory.
 scan_timeout = 10
@@ -36,5 +37,5 @@ behind = "⇣${count}"
 
 [hostname]
 ssh_only = true
-format = '[$hostname](bold red) '
+format = '[($hostname):](bold red) '
 disabled = false
