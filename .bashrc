@@ -381,7 +381,7 @@ if [ $(uname) == "Linux" ]; then
         fi
 
         #MADHU - need to setup Lmod here as well.
-	source /usr/share/lmod/lmod/init/profile
+	      source /usr/share/lmod/lmod/init/profile
         module use /home/madsrini/Ubuntu-22.04/modulefiles
 
         # rocm paths - MADHU: This should really be a module
@@ -415,6 +415,36 @@ if [ $(uname) == "Linux" ]; then
                 . "/home/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh"
             else
                 export PATH="/home/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin:$PATH"
+            fi
+        fi
+        unset __conda_setup
+        # <<< conda initialize <<<
+  elif [ "$(uname -n)" == $'login1.hpcfund' ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected host login1.hpcfund"
+        fi
+
+        #MADHU - need to setup Lmod here as well.
+        module use /home1/madsrini/Ubuntu-22.04/modulefiles
+
+        # rustup.rs needs this
+        export PATH="$HOME/.cargo/bin:$PATH"
+        export PATH="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH"
+        # nvm needs this
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+        # >>> conda initialize >>>
+        # !! Contents within this block are managed by 'conda init' !!
+        __conda_setup="$('/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__conda_setup"
+        else
+            if [ -f "/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh" ]; then
+                . "/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh"
+            else
+                export PATH="/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin:$PATH"
             fi
         fi
         unset __conda_setup
