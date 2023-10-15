@@ -183,10 +183,6 @@ if [ $(uname) == "Darwin" ]; then
   alias grp='grep -RIi'
   alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
 
-  # #homebrew git autocompletions
-  # if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-  #   . `brew --prefix`/etc/bash_completion.d/git-completion.bash
-  # fi
 fi
 
 # }}}
@@ -215,6 +211,14 @@ if [ $(uname) == "Darwin" ]; then
     # homebrew init
     eval "$(/opt/homebrew/bin/brew shellenv)"
 
+    # bash completion stuff
+    [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+    #homebrew git autocompletions
+    if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
+        . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+    fi
+    
+    
     #emacs
     alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
