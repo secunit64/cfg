@@ -8,6 +8,7 @@ ln -sf ~/develop/cfg/.gitconfig ~/.gitconfig
 
 mkdir -p ~/.matplotlib
 ln -sf ~/develop/cfg/matplotlibrc ~/.matplotlib/matplotlibrc
+mkdir -p ~/.jupyter
 ln -s ~/develop/cfg/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 
 cd ~/.ssh && chmod 644 config

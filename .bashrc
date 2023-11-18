@@ -183,10 +183,6 @@ if [ $(uname) == "Darwin" ]; then
   alias grp='grep -RIi'
   alias assumed="git ls-files -v | grep ^[a-z] | sed -e 's/^h\ //'"
 
-  #homebrew git autocompletions
-  if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
-    . `brew --prefix`/etc/bash_completion.d/git-completion.bash
-  fi
 fi
 
 # }}}
@@ -212,6 +208,17 @@ eval "$(starship init bash)"
 # OSX specific config {{{
 if [ $(uname) == "Darwin" ]; then
 
+    # homebrew init
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    # bash completion stuff
+    [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+    #homebrew git autocompletions
+    if [ -f `brew --prefix`/etc/bash_completion.d/git-completion.bash ]; then
+        . `brew --prefix`/etc/bash_completion.d/git-completion.bash
+    fi
+    
+    
     #emacs
     alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
@@ -220,14 +227,14 @@ if [ $(uname) == "Darwin" ]; then
 
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    __conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
-        if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+        if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
         else
-            export PATH="/usr/local/anaconda3/bin:$PATH"
+            export PATH="/opt/homebrew/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
@@ -252,7 +259,7 @@ if [ $(uname) == "Darwin" ]; then
     if [ -f /usr/local/opt/lmod/init/profile ]; then
         . /usr/local/opt/lmod/init/profile
     fi
-    module use ~/OSX/modulefiles
+    # module use ~/OSX/modulefiles
 
     test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
@@ -374,31 +381,77 @@ if [ $(uname) == "Linux" ]; then
         # nvm needs this
         export NVM_DIR="/home/srinivm/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  elif [ "$(lsb_release -sir)" == $'Ubuntu\n18.04' ]
+  elif [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected host Ubuntu 18.04"
+            echo "Detected host Ubuntu 22.04"
         fi
+
         #MADHU - need to setup Lmod here as well.
 	      source /usr/share/lmod/lmod/init/profile
-        module use /home/srinivm/Ubuntu-18.04/modulefiles
+        module use /home/madsrini/Ubuntu-22.04/modulefiles
+
+        # rocm paths - MADHU: This should really be a module
+        # export ROCM_PATH=/opt/rocm-5.4.3
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm-5.4.3/lib:/opt/rocm-5.4.3/lib64
+        # export PATH=$PATH:/opt/rocm-5.4.3/bin:/opt/rocm-5.4.3/opencl/bin
+
+        #rpr dev stuff - MADHU: This should really be a module
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/develop/gfx/FireRender/dist/release/bin/x86_64/
+        # export PATH=$PATH:~/develop/gfx/FireRender/dist/release/bin/x86_64/
+
+        # rtb paths - MADHU: This should really be a module
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/release
+        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/Release
+        # export PATH=$PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/Release
 
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
+        export PATH="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH"
         # nvm needs this
-        export NVM_DIR="/home/srinivm/.nvm"
+        export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
         # >>> conda initialize >>>
         # !! Contents within this block are managed by 'conda init' !!
-        __conda_setup="$('/home/srinivm/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+        __conda_setup="$('/home/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
         if [ $? -eq 0 ]; then
             eval "$__conda_setup"
         else
-            if [ -f "/home/srinivm/anaconda3/etc/profile.d/conda.sh" ]; then
-                . "/home/srinivm/anaconda3/etc/profile.d/conda.sh"
+            if [ -f "/home/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh" ]; then
+                . "/home/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh"
             else
-                export PATH="/home/srinivm/anaconda3/bin:$PATH"
+                export PATH="/home/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin:$PATH"
+            fi
+        fi
+        unset __conda_setup
+        # <<< conda initialize <<<
+  elif [ "$(uname -n)" == $'login1.hpcfund' ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected host login1.hpcfund"
+        fi
+
+        #MADHU - need to setup Lmod here as well.
+        module use /home1/madsrini/Ubuntu-22.04/modulefiles
+
+        # rustup.rs needs this
+        export PATH="$HOME/.cargo/bin:$PATH"
+        export PATH="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH"
+        # nvm needs this
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+        # >>> conda initialize >>>
+        # !! Contents within this block are managed by 'conda init' !!
+        __conda_setup="$('/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__conda_setup"
+        else
+            if [ -f "/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh" ]; then
+                . "/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/etc/profile.d/conda.sh"
+            else
+                export PATH="/home1/madsrini/Ubuntu-22.04/software/anaconda3/2023.07/bin:$PATH"
             fi
         fi
         unset __conda_setup
@@ -419,6 +472,3 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
-
-
-export PATH="$HOME/.cargo/bin:$PATH"
