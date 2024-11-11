@@ -39,6 +39,7 @@
     default = matching
 [pull]
     default = current
+	rebase = false
 [diff]
   memonicprefix = true
 [branch]
