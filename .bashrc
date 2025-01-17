@@ -462,6 +462,19 @@ if [ $(uname) == "Linux" ]; then
         fi
     fi
 
+
+    emacs-session(){
+        server_name="${1:-noname}"
+        emacs_cmd="emacsclient -c -nw -t -s $server_name ."
+        eval $emacs_cmd 
+    }
+    
+    kill-emacs-session(){
+        server_name="${1:-noname}"
+        kill_emacs_cmd="emacsclient -s $server_name -e \"(kill-emacs)\" "
+        eval $kill_emacs_cmd 
+    }
+    
     alias emacs="emacsclient -nw -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     export ALTERNATE_EDITOR=""
@@ -472,3 +485,5 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
+
+source '/home/madsrini/.bash_completions/comfy.sh'
