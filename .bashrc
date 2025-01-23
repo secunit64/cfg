@@ -285,8 +285,11 @@ if [ $(uname) == "Darwin" ]; then
         npm config set -g strict-ssl true
         yarn config set cafile "${cert_path}" -g
         yarn config set strict-ssl true -g
+        export REQUESTS_CA_BUNDLE="${cert_path}"
     }
-    setup-certs
+    if [ ! -f $HOME/.certs/all.pem ]; then
+        setup-certs
+    fi
 
 fi
 # }}}
