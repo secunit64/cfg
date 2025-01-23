@@ -509,5 +509,3 @@ if [ $(uname) == "Linux" ]; then
 
 fi
 # }}}
-
-source '/home/madsrini/.bash_completions/comfy.sh'
