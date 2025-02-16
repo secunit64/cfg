@@ -218,14 +218,32 @@ if [ $(uname) == "Darwin" ]; then
         . `brew --prefix`/etc/bash_completion.d/git-completion.bash
     fi
     
+    emacs-session(){
+        server_name="${1:-noname}"
+        emacs_cmd="emacsclient -c -nw -t -s $server_name ."
+        eval $emacs_cmd 
+    }
     
-    #emacs
-    alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
-
+    kill-emacs-session(){
+        server_name="${1:-noname}"
+        kill_emacs_cmd="emacsclient -s $server_name -e \"(kill-emacs)\" "
+        eval $kill_emacs_cmd 
+    }
+    
+    alias emacs="emacsclient -nw -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
-    export EDITOR="emacsclient --alternate-editor=\"\" -t"
-    export VISUAL="emacsclient --alternate-editor=\"\" -t"
+    export ALTERNATE_EDITOR=""
+    export EDITOR="emacsclient -nw -t"
+    export VISUAL="emacsclient -nw -t"
+    export LP_ENABLE_TEMP=0
+   
+    #emacs
+    # alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
+    # alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    # export EDITOR="emacsclient --alternate-editor=\"\" -t"
+    # export VISUAL="emacsclient --alternate-editor=\"\" -t"
 
+    
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
