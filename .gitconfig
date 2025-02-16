@@ -39,6 +39,7 @@
     default = matching
 [pull]
     default = current
+	rebase = false
 [diff]
   memonicprefix = true
 [branch]
@@ -164,3 +165,5 @@
 	process = git-lfs filter-process
 [commit]
 	template = /Users/madsrini/.stCommitMsg
+[credential]
+	helper = store

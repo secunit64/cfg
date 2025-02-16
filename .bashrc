@@ -221,6 +221,7 @@ if [ $(uname) == "Darwin" ]; then
     
     #emacs
     alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
+
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     export EDITOR="emacsclient --alternate-editor=\"\" -t"
     export VISUAL="emacsclient --alternate-editor=\"\" -t"
@@ -265,145 +266,57 @@ if [ $(uname) == "Darwin" ]; then
 
     # osx common-lisp-jupyter
     export PATH=$PATH:~/.roswell/bin
-
+    # taken from https://stackoverflow.com/questions/36494336/npm-install-error-unable-to-get-local-issuer-certificate
+    function setup-certs() {
+        # place to put the combined certs
+        local cert_path="$HOME/.certs/all.pem"
+        local cert_dir=$(dirname "${cert_path}")
+        [[ -d "${cert_dir}" ]] || mkdir -p "${cert_dir}"
+        # grab all the certs
+        security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > "${cert_path}"
+        security find-certificate -a -p /Library/Keychains/System.keychain >> "${cert_path}"
+        # configure env vars for commonly used tools
+        export GIT_SSL_CAINFO="${cert_path}"
+        export AWS_CA_BUNDLE="${cert_path}"
+        export NODE_EXTRA_CA_CERTS="${cert_path}"
+        # add the certs for npm and yarn
+        # and since we have certs, strict-ssl can be true
+        npm config set -g cafile "${cert_path}"
+        npm config set -g strict-ssl true
+        yarn config set cafile "${cert_path}" -g
+        yarn config set strict-ssl true -g
+        export REQUESTS_CA_BUNDLE="${cert_path}"
+    }
+    if [ ! -f $HOME/.certs/all.pem ]; then
+        setup-certs
+    fi
 
 fi
 # }}}
 
 # Linux specific config {{{
 if [ $(uname) == "Linux" ]; then
-    # Source global definitions
 
+    # Source global definitions
     if [ -f /usr/share/bash-completion/bash_completion ]; then
         . /usr/share/bash-completion/bash_completion
     elif [ -f /etc/bash_completion ]; then
         . /etc/bash_completion
     fi
 
+    # Scripts common to all configurations
+
     umask 002
 
-    # Options for KVL CentOS7 Systems
-    if [ "$(lsb_release -sir)" == "CentOS 7.6.1810" ]
-    then
-        if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected $(lsb_release -sir)"
-        fi
-        # setup Lmod
-        source /usr/share/lmod/lmod/init/profile
-
-
-        module use /home/srinivm/CentOS7/modulefiles
-        module load emacs/24.5
-        #system scripts
-        export PATH="/scheduler/ibex/scripts/bin:$PATH"
-        #rustup
-        export PATH="$HOME/.cargo/bin:$PATH"
-        module use /var/remote/projects/software/modules/sets
-        # nvm needs this
-        export NVM_DIR="/home/srinivm/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-        # >>> conda initialize >>>
-        # !! Contents within this block are managed by 'conda init' !!
-        __conda_setup="$('/home/srinivm/CentOS7/software/anaconda/python3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-        if [ $? -eq 0 ]; then
-            eval "$__conda_setup"
-        else
-            if [ -f "/home/srinivm/CentOS7/software/anaconda/python3/etc/profile.d/conda.sh" ]; then
-                . "/home/srinivm/CentOS7/software/anaconda/python3/etc/profile.d/conda.sh"
-            else
-                export PATH="/home/srinivm/CentOS7/software/anaconda/python3/bin:$PATH"
-            fi
-        fi
-        unset __conda_setup
-        # <<< conda initialize <<<
-
-    # Options for IBEX Cluster
-    elif [ "$(lsb_release -sir)" == "CentOS 7.5.1804" ]
-    then
-        if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected $(lsb_release -sir)"
-        fi
-        # setup Lmod
-        #source /usr/share/lmod/lmod/init/profile
-
-        module use /home/srinivm/IBEX/modulefiles
-        #module load emacs/24.5
-
-        #system scripts
-        export PATH="/scheduler/ibex/scripts/bin:$PATH"
-
-        #rustup
-        export PATH="$HOME/.cargo/bin:$PATH"
-        # module use /var/remote/projects/software/modules/sets
-        # nvm needs this
-        export NVM_DIR="/home/srinivm/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    elif [ "$(lsb_release -sir)" == "Scientific 6.9" ]
-    then
-        if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected $(lsb_release -sir)"
-        fi
-        source /usr/share/Modules/init/bash
-        module use /home/srinivm/SL6/modulefiles
-        module load emacs/24.5
-
-        #system scripts
-        export PATH="/scheduler/ibex/scripts/bin:$PATH"
-
-        # nvm needs this
-        export NVM_DIR="/home/srinivm/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    elif [ "$(lsb_release -sir)" == "SUSE 12.3" ]
-    then
-        if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected $(lsb_release -sir)"
-        fi
-        module use /home/srinivm/SUSE/modulefiles
-        module use /project/k1033/modulefiles
-        module use /lustre/project/k1033/madhu/modulefiles
-        module load emacs/24.5
-        module load git
-        # rustup.rs needs this
-        export CARGO_HOME=/lustre/project/k1033/software/rust/.cargo
-        export PATH=$CARGO_HOME/bin:$PATH
-        export RUSTUP_HOME=/lustre/project/k1033/software/rust/.rustup
-    elif [ "$(lsb_release -sir)" == $'Ubuntu\n14.04' ]
-    then
-        if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected host Ubuntu 14.04"
-        fi
-        #MADHU - need to setup Lmod here as well.
-
-        #module use /home/srinivm/Ubuntu-14.04/modulefiles
-        # rustup.rs needs this
-        export PATH="$HOME/.cargo/bin:$PATH"
-        # nvm needs this
-        export NVM_DIR="/home/srinivm/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  elif [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
+    if [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected host Ubuntu 22.04"
         fi
 
-        #MADHU - need to setup Lmod here as well.
-	      source /usr/share/lmod/lmod/init/profile
+        # MADHU - need to setup Lmod here as well.
+	source /usr/share/lmod/lmod/init/profile
         module use /home/madsrini/Ubuntu-22.04/modulefiles
-
-        # rocm paths - MADHU: This should really be a module
-        # export ROCM_PATH=/opt/rocm-5.4.3
-        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm-5.4.3/lib:/opt/rocm-5.4.3/lib64
-        # export PATH=$PATH:/opt/rocm-5.4.3/bin:/opt/rocm-5.4.3/opencl/bin
-
-        #rpr dev stuff - MADHU: This should really be a module
-        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/develop/gfx/FireRender/dist/release/bin/x86_64/
-        # export PATH=$PATH:~/develop/gfx/FireRender/dist/release/bin/x86_64/
-
-        # rtb paths - MADHU: This should really be a module
-        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/release
-        # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/Release
-        # export PATH=$PATH:/home/madsrini/develop/gfx/Rtb/dist/bin/Release
 
         # rustup.rs needs this
         export PATH="$HOME/.cargo/bin:$PATH"
@@ -426,7 +339,11 @@ if [ $(uname) == "Linux" ]; then
         fi
         unset __conda_setup
         # <<< conda initialize <<<
-  elif [ "$(uname -n)" == $'login1.hpcfund' ]
+
+	# snap bin path needs to be upfront
+	export PATH="/snap/bin:$PATH"
+	
+    elif [ "$(uname -n)" == $'login1.hpcfund' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected host login1.hpcfund"
@@ -462,12 +379,35 @@ if [ $(uname) == "Linux" ]; then
         fi
     fi
 
+
+    emacs-session(){
+        server_name="${1:-noname}"
+        emacs_cmd="emacsclient -c -nw -t -s $server_name ."
+        eval $emacs_cmd 
+    }
+    
+    kill-emacs-session(){
+        server_name="${1:-noname}"
+        kill_emacs_cmd="emacsclient -s $server_name -e \"(kill-emacs)\" "
+        eval $kill_emacs_cmd 
+    }
+    
     alias emacs="emacsclient -nw -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
     export ALTERNATE_EDITOR=""
     export EDITOR="emacsclient -nw -t"
     export VISUAL="emacsclient -nw -t"
     export LP_ENABLE_TEMP=0
+
+    # add special per-host customizations here
+    if [ "$(uname -n)" == $'bel-a100' ]; then
+	CUDA_HOME="/usr/local/cuda"
+	export PATH="$CUDA_HOME/bin":$PATH
+	export LIBRARY_PATH="$CUDA_HOME/lib64":$LIBRARY_PATH
+	export LD_LIBRARY_PATH="$CUDA_HOME/lib64":$LD_LIBRARY_PATH
+	export CMAKE_LIBRARY_PATH="$CUDA_HOME/lib64":$CMAKE_LIBRARY_PATH
+	export CMAKE_INCLUDE_PATH="$CUDA_HOME/include":$CMAKE_INCLUDE_PATH
+    fi 
 
 
 fi
