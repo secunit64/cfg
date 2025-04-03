@@ -333,7 +333,7 @@ if [ $(uname) == "Linux" ]; then
         fi
 
         # MADHU - need to setup Lmod here as well.
-	source /usr/share/lmod/lmod/init/profile
+	      source /usr/share/lmod/lmod/init/profile
         module use /home/madsrini/Ubuntu-22.04/modulefiles
 
         # rustup.rs needs this
@@ -358,8 +358,8 @@ if [ $(uname) == "Linux" ]; then
         unset __conda_setup
         # <<< conda initialize <<<
 
-	# snap bin path needs to be upfront
-	export PATH="/snap/bin:$PATH"
+        # snap bin path needs to be upfront
+        export PATH="/snap/bin:$PATH"
 	
     elif [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
     then
@@ -368,7 +368,7 @@ if [ $(uname) == "Linux" ]; then
         fi
 
         # MADHU - need to setup Lmod here as well.
-	source /usr/share/lmod/lmod/init/profile
+	      source /usr/share/lmod/lmod/init/profile
         module use /home/madsrini/Ubuntu-22.04/modulefiles
 
         # rustup.rs needs this
@@ -393,8 +393,8 @@ if [ $(uname) == "Linux" ]; then
         unset __conda_setup
         # <<< conda initialize <<<
 
-	# snap bin path needs to be upfront
-	export PATH="/snap/bin:$PATH"
+        # snap bin path needs to be upfront
+        export PATH="/snap/bin:$PATH"
 	
     elif [ "$(uname -n)" == $'login1.hpcfund' ]
     then
