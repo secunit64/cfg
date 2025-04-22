@@ -218,14 +218,32 @@ if [ $(uname) == "Darwin" ]; then
         . `brew --prefix`/etc/bash_completion.d/git-completion.bash
     fi
     
+    emacs-session(){
+        server_name="${1:-noname}"
+        emacs_cmd="emacsclient -c -nw -t -s $server_name ."
+        eval $emacs_cmd 
+    }
     
-    #emacs
-    alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
-
+    kill-emacs-session(){
+        server_name="${1:-noname}"
+        kill_emacs_cmd="emacsclient -s $server_name -e \"(kill-emacs)\" "
+        eval $kill_emacs_cmd 
+    }
+    
+    alias emacs="emacsclient -nw -t"
     alias kill-emacs="emacsclient -e '(kill-emacs)'"
-    export EDITOR="emacsclient --alternate-editor=\"\" -t"
-    export VISUAL="emacsclient --alternate-editor=\"\" -t"
+    export ALTERNATE_EDITOR=""
+    export EDITOR="emacsclient -nw -t"
+    export VISUAL="emacsclient -nw -t"
+    export LP_ENABLE_TEMP=0
+   
+    #emacs
+    # alias emacs="emacsclient -nw -t --alternate-editor=\"\" "
+    # alias kill-emacs="emacsclient -e '(kill-emacs)'"
+    # export EDITOR="emacsclient --alternate-editor=\"\" -t"
+    # export VISUAL="emacsclient --alternate-editor=\"\" -t"
 
+    
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -308,14 +326,49 @@ if [ $(uname) == "Linux" ]; then
 
     umask 002
 
-    if [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
+    if [ "$(lsb_release -sir)" == $'Ubuntu\n24.04' ]
+    then
+        if [[ $- =~ "i" ]]; then #print message only if interactive shell
+            echo "Detected host Ubuntu 24.04"
+        fi
+
+        # MADHU - need to setup Lmod here as well.
+	      source /usr/share/lmod/lmod/init/profile
+        module use /home/madsrini/Ubuntu-22.04/modulefiles
+
+        # rustup.rs needs this
+        export PATH="$HOME/.cargo/bin:$PATH"
+        export PATH="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:$PATH"
+        # nvm needs this
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+        # >>> conda initialize >>>
+        # !! Contents within this block are managed by 'conda init' !!
+        __conda_setup="$('/home/madsrini/Ubuntu-22.04/software/anaconda3/2024.10/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+        if [ $? -eq 0 ]; then
+            eval "$__conda_setup"
+        else
+            if [ -f "/home/madsrini/Ubuntu-22.04/software/anaconda3/2024.10/etc/profile.d/conda.sh" ]; then
+                . "/home/madsrini/Ubuntu-22.04/software/anaconda3/2024.10/etc/profile.d/conda.sh"
+            else
+                export PATH="/home/madsrini/Ubuntu-22.04/software/anaconda3/2024.10/bin:$PATH"
+            fi
+        fi
+        unset __conda_setup
+        # <<< conda initialize <<<
+
+        # snap bin path needs to be upfront
+        export PATH="/snap/bin:$PATH"
+	
+    elif [ "$(lsb_release -sir)" == $'Ubuntu\n22.04' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
             echo "Detected host Ubuntu 22.04"
         fi
 
         # MADHU - need to setup Lmod here as well.
-	source /usr/share/lmod/lmod/init/profile
+	      source /usr/share/lmod/lmod/init/profile
         module use /home/madsrini/Ubuntu-22.04/modulefiles
 
         # rustup.rs needs this
@@ -340,8 +393,8 @@ if [ $(uname) == "Linux" ]; then
         unset __conda_setup
         # <<< conda initialize <<<
 
-	# snap bin path needs to be upfront
-	export PATH="/snap/bin:$PATH"
+        # snap bin path needs to be upfront
+	      export PATH="/snap/bin:$PATH"
 
     elif [[ "$(uname -n)" == *"hpcfund" ]]
     then
@@ -401,13 +454,27 @@ if [ $(uname) == "Linux" ]; then
 
     # add special per-host customizations here
     if [ "$(uname -n)" == $'bel-a100' ]; then
-	CUDA_HOME="/usr/local/cuda"
-	export PATH="$CUDA_HOME/bin":$PATH
-	export LIBRARY_PATH="$CUDA_HOME/lib64":$LIBRARY_PATH
-	export LD_LIBRARY_PATH="$CUDA_HOME/lib64":$LD_LIBRARY_PATH
-	export CMAKE_LIBRARY_PATH="$CUDA_HOME/lib64":$CMAKE_LIBRARY_PATH
-	export CMAKE_INCLUDE_PATH="$CUDA_HOME/include":$CMAKE_INCLUDE_PATH
-    fi 
+        CUDA_HOME="/usr/local/cuda"
+        export PATH="$CUDA_HOME/bin":$PATH
+        export LIBRARY_PATH="$CUDA_HOME/lib64":$LIBRARY_PATH
+        export LD_LIBRARY_PATH="$CUDA_HOME/lib64":$LD_LIBRARY_PATH
+        export CMAKE_LIBRARY_PATH="$CUDA_HOME/lib64":$CMAKE_LIBRARY_PATH
+        export CMAKE_INCLUDE_PATH="$CUDA_HOME/include":$CMAKE_INCLUDE_PATH
+    fi
+    
+    # add special per-host customizations here
+    if [ "$(uname -n)" == $'bel-gfx0' ]; then
+        #ROS2 setup
+        # source /opt/ros/humble/setup.bash
+        # Linux unlock gnome keyring
+        function unlock-keyring ()
+        {
+            read -rsp "Password: " pass
+            export $(echo -n "$pass" | gnome-keyring-daemon --replace --unlock)
+            unset pass
+        }
+        # unlock-keyring
+    fi
 
 
 fi
