@@ -399,12 +399,12 @@ if [ $(uname) == "Linux" ]; then
         # <<< conda initialize <<<
 
         # snap bin path needs to be upfront
-        export PATH="/snap/bin:$PATH"
-	
-    elif [ "$(uname -n)" == $'login1.hpcfund' ]
+	      export PATH="/snap/bin:$PATH"
+
+    elif [[ "$(uname -n)" == *"hpcfund" ]]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
-            echo "Detected host login1.hpcfund"
+            echo "Detected host $(uname -n)"
         fi
 
         #MADHU - need to setup Lmod here as well.
