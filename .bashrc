@@ -323,9 +323,14 @@ if [ $(uname) == "Linux" ]; then
     fi
 
     # Scripts common to all configurations
-
     umask 002
+    # !! IMPORTANT !! this must go *before* the conda init block
+    #
+    # Do not automatically activate the base environment
+    # during shell initialization.
+    export CONDA_AUTO_ACTIVATE_BASE=false
 
+    
     if [ "$(lsb_release -sir)" == $'Ubuntu\n24.04' ]
     then
         if [[ $- =~ "i" ]]; then #print message only if interactive shell
