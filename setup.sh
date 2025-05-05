@@ -6,10 +6,17 @@ ln -sf ~/develop/cfg/.emacs.d ~/.emacs.d
 ln -sf ~/develop/cfg/.ssh/config ~/.ssh/config
 ln -sf ~/develop/cfg/.gitconfig ~/.gitconfig
 
+# setup warp themes
+mkdir -p ~/.warp
+ln -sf ~/develop/cfg/warp-themes/ ~/.warp/themes
+
+# setup matplotlib
 mkdir -p ~/.matplotlib
 mkdir -p ~/.config/matplotlib
 ln -sf ~/develop/cfg/matplotlibrc ~/.matplotlib/matplotlibrc
 ln -sf ~/develop/cfg/matplotlibrc ~/.config/matplotlib/matplotlibrc
+
+# setup jupyter
 mkdir -p ~/.jupyter
 ln -s ~/develop/cfg/jupyter_notebook_config.py ~/.jupyter/jupyter_notebook_config.py
 
